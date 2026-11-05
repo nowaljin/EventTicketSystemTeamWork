@@ -1,0 +1,20 @@
+@page
+@model EventTicketSystem.Pages.Users.SelectModel
+@{
+    ViewData["Title"] = "利用者選択";
+}
+<h2>利用者選択</h2>
+<p class="text-muted">利用者を選択してください（デモ用の簡易ログイン）。</p>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">利用者</label>
+        <select class="form-select" asp-for="SelectedUserId">
+            @foreach (var u in Model.Users)
+            {
+                <option value="@u.UserId">@u.UserCode - @u.Name (@u.Role)</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">選択</button>
+</form>

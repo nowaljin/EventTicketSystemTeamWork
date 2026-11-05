@@ -1,0 +1,51 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "トップページ";
+}
+<div class="text-center mb-4">
+    <h1 class="display-5">🎫 イベント・チケット予約管理システム</h1>
+    <p class="lead">開催予定イベントの検索・詳細確認・チケット予約・予約確認ができます。</p>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-8">
+        <form method="get" asp-page="/Events/Index" class="d-flex">
+            <input type="text" name="Name" class="form-control me-2" placeholder="イベント名で検索" />
+            <button type="submit" class="btn btn-primary">検索</button>
+        </form>
+    </div>
+    <div class="col-md-4 text-end">
+        @if (HttpContext.Session.GetInt32("UserId") is null)
+        {
+            <a class="btn btn-outline-secondary" asp-page="/Users/Select">利用者を選択</a>
+        }
+    </div>
+</div>
+
+<h3>開催予定イベント</h3>
+<table class="table table-striped table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>イベント名</th>
+            <th>開催日</th>
+            <th>会場</th>
+            <th>料金</th>
+            <th>残席数</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.UpcomingEvents)
+        {
+            <tr>
+                <td>@e.EventName</td>
+                <td>@e.EventDate.ToString("yyyy/MM/dd HH:mm")</td>
+                <td>@e.Venue</td>
+                <td>@e.Price 円</td>
+                <td>@e.RemainingSeats / @e.Capacity</td>
+                <td><a class="btn btn-sm btn-outline-primary" asp-page="/Events/Details" asp-route-id="@e.EventId">詳細</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="sans-serif">
+  <style>
+    .title { font-size: 18px; font-weight: bold; fill: #1a3a5c; }
+    .box { fill: #eef4fa; stroke: #1a3a5c; stroke-width: 2; rx: 8; }
+    .head { fill: #1a3a5c; }
+    .headtext { fill: #fff; font-size: 14px; font-weight: bold; }
+    .col { font-size: 12px; fill: #222; }
+    .pk { font-weight: bold; fill: #b30000; }
+    .fk { fill: #0055aa; }
+    .rel { stroke: #555; stroke-width: 2; fill: none; }
+    .card { font-size: 12px; fill: #555; font-weight: bold; }
+  </style>
+
+  <text x="450" y="28" text-anchor="middle" class="title">ER図 — イベント・チケット予約管理システム (event_system)</text>
+
+  <!-- users -->
+  <rect x="40" y="60" width="200" height="150" class="box"/>
+  <rect x="40" y="60" width="200" height="28" class="head" rx="8"/>
+  <text x="140" y="80" text-anchor="middle" class="headtext">users</text>
+  <text x="50" y="104" class="col pk">user_id (PK)</text>
+  <text x="50" y="120" class="col">user_code (UNIQUE)</text>
+  <text x="50" y="136" class="col">name</text>
+  <text x="50" y="152" class="col">email</text>
+  <text x="50" y="168" class="col">role</text>
+  <text x="50" y="184" class="col">created_at</text>
+
+  <!-- categories -->
+  <rect x="350" y="60" width="200" height="90" class="box"/>
+  <rect x="350" y="60" width="200" height="28" class="head" rx="8"/>
+  <text x="450" y="80" text-anchor="middle" class="headtext">categories</text>
+  <text x="360" y="104" class="col pk">category_id (PK)</text>
+  <text x="360" y="120" class="col">category_name</text>
+
+  <!-- events -->
+  <rect x="350" y="230" width="220" height="170" class="box"/>
+  <rect x="350" y="230" width="220" height="28" class="head" rx="8"/>
+  <text x="460" y="250" text-anchor="middle" class="headtext">events</text>
+  <text x="360" y="274" class="col pk">event_id (PK)</text>
+  <text x="360" y="290" class="col fk">category_id (FK)</text>
+  <text x="360" y="306" class="col">event_name</text>
+  <text x="360" y="322" class="col">description</text>
+  <text x="360" y="338" class="col">event_date</text>
+  <text x="360" y="354" class="col">venue</text>
+  <text x="360" y="370" class="col">price</text>
+  <text x="360" y="386" class="col">capacity / status / created_at</text>
+
+  <!-- reservations -->
+  <rect x="640" y="150" width="230" height="190" class="box"/>
+  <rect x="640" y="150" width="230" height="28" class="head" rx="8"/>
+  <text x="755" y="170" text-anchor="middle" class="headtext">reservations</text>
+  <text x="650" y="194" class="col pk">reservation_id (PK)</text>
+  <text x="650" y="210" class="col">reservation_code (UNIQUE)</text>
+  <text x="650" y="226" class="col fk">user_id (FK)</text>
+  <text x="650" y="242" class="col fk">event_id (FK)</text>
+  <text x="650" y="258" class="col">quantity</text>
+  <text x="650" y="274" class="col">total_price</text>
+  <text x="650" y="290" class="col">status</text>
+  <text x="650" y="306" class="col">reserved_at</text>
+
+  <!-- relations -->
+  <!-- categories 1 - N events -->
+  <line x1="450" y1="150" x2="450" y2="230" class="rel"/>
+  <text x="458" y="192" class="card">1</text>
+  <text x="458" y="226" class="card">N</text>
+
+  <!-- events 1 - N reservations -->
+  <line x1="570" y1="300" x2="640" y2="245" class="rel"/>
+  <text x="578" y="292" class="card">1</text>
+  <text x="628" y="242" class="card">N</text>
+
+  <!-- users 1 - N reservations -->
+  <line x1="240" y1="135" x2="640" y2="200" class="rel"/>
+  <text x="248" y="130" class="card">1</text>
+  <text x="628" y="196" class="card">N</text>
+
+  <text x="450" y="470" text-anchor="middle" class="col">categories 1 ── N events 1 ── N reservations N ── 1 users</text>
+  <text x="450" y="490" text-anchor="middle" class="col">PK = Primary Key, FK = Foreign Key</text>
+</svg>

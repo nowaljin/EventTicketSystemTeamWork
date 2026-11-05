@@ -1,0 +1,45 @@
+@page
+@model EventTicketSystem.Pages.Reservations.MyReservationsModel
+@{
+    ViewData["Title"] = "自分の予約一覧";
+}
+<h2>自分の予約一覧</h2>
+
+<table class="table table-striped table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>予約番号</th>
+            <th>イベント名</th>
+            <th>開催日</th>
+            <th>予約枚数</th>
+            <th>合計金額</th>
+            <th>予約状態</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Reservations)
+        {
+            <tr>
+                <td>@r.ReservationCode</td>
+                <td>@r.EventName</td>
+                <td>@r.EventDate.ToString("yyyy/MM/dd HH:mm")</td>
+                <td>@r.Quantity</td>
+                <td>@r.TotalPrice 円</td>
+                <td>@r.Status</td>
+                <td>
+                    @if (r.Status == "予約済" && r.EventDate > DateTime.Now)
+                    {
+                        <form method="post" asp-page-handler="Cancel" asp-route-id="@r.ReservationId" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('キャンセルしますか？');">キャンセル</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        @if (!Model.Reservations.Any())
+        {
+            <tr><td colspan="7" class="text-center text-muted">予約がありません。</td></tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,25 @@
+@page "{id:int}"
+@model EventTicketSystem.Pages.Reservations.CompleteModel
+@{
+    ViewData["Title"] = "予約完了";
+}
+<h2>予約完了</h2>
+
+@if (Model.Reservation == null)
+{
+    <div class="alert alert-warning">予約が見つかりません。</div>
+}
+else
+{
+    <div class="alert alert-success">予約が完了しました。</div>
+    <dl class="row">
+        <dt class="col-sm-3">予約番号</dt><dd class="col-sm-9">@Model.Reservation.ReservationCode</dd>
+        <dt class="col-sm-3">利用者名</dt><dd class="col-sm-9">@Model.Reservation.UserName</dd>
+        <dt class="col-sm-3">イベント名</dt><dd class="col-sm-9">@Model.Reservation.EventName</dd>
+        <dt class="col-sm-3">予約枚数</dt><dd class="col-sm-9">@Model.Reservation.Quantity 枚</dd>
+        <dt class="col-sm-3">合計金額</dt><dd class="col-sm-9">@Model.Reservation.TotalPrice 円</dd>
+        <dt class="col-sm-3">予約日時</dt><dd class="col-sm-9">@Model.Reservation.ReservedAt.ToString("yyyy/MM/dd HH:mm")</dd>
+    </dl>
+    <a class="btn btn-primary" asp-page="/Reservations/MyReservations">自分の予約一覧</a>
+    <a class="btn btn-outline-secondary ms-2" asp-page="/Index">トップへ</a>
+}

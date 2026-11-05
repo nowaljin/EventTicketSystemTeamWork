@@ -1,0 +1,35 @@
+@page "{id:int}"
+@model EventTicketSystem.Pages.Events.DetailsModel
+@{
+    ViewData["Title"] = "イベント詳細";
+}
+@if (Model.Event == null)
+{
+    <div class="alert alert-warning">イベントが見つかりません。</div>
+}
+else
+{
+    <h2>@Model.Event.EventName</h2>
+    <dl class="row">
+        <dt class="col-sm-3">イベントID</dt><dd class="col-sm-9">@Model.Event.EventId</dd>
+        <dt class="col-sm-3">カテゴリ</dt><dd class="col-sm-9">@Model.Event.CategoryName</dd>
+        <dt class="col-sm-3">説明</dt><dd class="col-sm-9">@Model.Event.Description</dd>
+        <dt class="col-sm-3">開催日時</dt><dd class="col-sm-9">@Model.Event.EventDate.ToString("yyyy/MM/dd HH:mm")</dd>
+        <dt class="col-sm-3">会場</dt><dd class="col-sm-9">@Model.Event.Venue</dd>
+        <dt class="col-sm-3">料金</dt><dd class="col-sm-9">@Model.Event.Price 円</dd>
+        <dt class="col-sm-3">定員</dt><dd class="col-sm-9">@Model.Event.Capacity 名</dd>
+        <dt class="col-sm-3">現在の予約人数</dt><dd class="col-sm-9">@Model.Event.ReservedCount 名</dd>
+        <dt class="col-sm-3">残席数</dt><dd class="col-sm-9">@Model.Event.RemainingSeats 名</dd>
+        <dt class="col-sm-3">状態</dt><dd class="col-sm-9">@Model.Event.Status</dd>
+    </dl>
+
+    @if (HttpContext.Session.GetInt32("UserId") is int uid && Model.Event.Status == "公開中" && Model.Event.RemainingSeats > 0)
+    {
+        <a class="btn btn-success" asp-page="/Reservations/Create" asp-route-eventId="@Model.Event.EventId">予約する</a>
+    }
+    else if (HttpContext.Session.GetInt32("UserId") is null)
+    {
+        <a class="btn btn-outline-secondary" asp-page="/Users/Select">利用者を選択して予約</a>
+    }
+    <a class="btn btn-outline-secondary ms-2" asp-page="/Events/Index">戻る</a>
+}

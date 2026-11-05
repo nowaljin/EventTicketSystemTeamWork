@@ -1,0 +1,85 @@
+@page
+@model EventTicketSystem.Pages.Admin.ReservationsModel
+@{
+    ViewData["Title"] = "予約管理";
+}
+<h2>予約管理</h2>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input type="text" name="EventName" value="@Model.EventName" class="form-control" placeholder="イベント名" />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="UserName" value="@Model.UserName" class="form-control" placeholder="利用者名" />
+    </div>
+    <div class="col-md-3">
+        <select name="Status" class="form-select">
+            <option value="">状態（すべて）</option>
+            <option value="予約済" selected="@(Model.Status == "予約済")">予約済</option>
+            <option value="キャンセル済" selected="@(Model.Status == "キャンセル済")">キャンセル済</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-primary">検索</button>
+    </div>
+</form>
+
+<table class="table table-striped table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>予約番号</th>
+            <th>利用者名</th>
+            <th>イベント名</th>
+            <th>予約枚数</th>
+            <th>合計金額</th>
+            <th>予約日時</th>
+            <th>状態</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Reservations)
+        {
+            <tr>
+                <td>@r.ReservationCode</td>
+                <td>@r.UserName</td>
+                <td>@r.EventName</td>
+                <td>@r.Quantity</td>
+                <td>@r.TotalPrice 円</td>
+                <td>@r.ReservedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                <td>@r.Status</td>
+                <td>
+                    @if (r.Status == "予約済")
+                    {
+                        <form method="post" asp-page-handler="Cancel" asp-route-id="@r.ReservationId" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-warning">キャンセルに変更</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="Restore" asp-route-id="@r.ReservationId" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-success">予約済に戻す</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        @if (!Model.Reservations.Any())
+        {
+            <tr><td colspan="8" class="text-center text-muted">予約がありません。</td></tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-3">
+    <strong>売上合計（予約済）:</strong> @Model.SalesTotal 円
+</div>
+<div class="mt-2">
+    <strong>人気イベント:</strong>
+    <ul>
+        @foreach (var p in Model.Popular)
+        {
+            <li>@p.EventName — @p.Count 枚</li>
+        }
+    </ul>
+</div>
