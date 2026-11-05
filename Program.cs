@@ -51,19 +51,13 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-var isDesktop = args.Contains("--desktop");
-
 app.Lifetime.ApplicationStarted.Register(() =>
 {
-    if (isDesktop)
+    try
     {
-        try
-        {
-            var url = "http://localhost:5050";
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
-        }
-        catch { }
+        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("http://localhost:5000") { UseShellExecute = true });
     }
+    catch { }
 });
 
 app.Run();
