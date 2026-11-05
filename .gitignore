@@ -7,3 +7,9 @@ appsettings.Development.json
 ER図.svg
 open_app.html
 setup.sql.bak
+
+# Published exes (local only)
+Web/
+Desktop/
+BaslatWeb.bat
+BaslatDesktop.bat
