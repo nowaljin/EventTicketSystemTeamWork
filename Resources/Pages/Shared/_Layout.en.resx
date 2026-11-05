@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="Home" xml:space="preserve"><value>Home</value></data>
+  <data name="Events" xml:space="preserve"><value>Events</value></data>
+  <data name="MyReservations" xml:space="preserve"><value>My Reservations</value></data>
+  <data name="AdminEvents" xml:space="preserve"><value>Event Management</value></data>
+  <data name="AdminReservations" xml:space="preserve"><value>Reservation Management</value></data>
+  <data name="SelectUser" xml:space="preserve"><value>Select User</value></data>
+  <data name="Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="LoggedInAs" xml:space="preserve"><value>Logged in as</value></data>
+</root>

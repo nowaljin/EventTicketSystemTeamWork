@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="Home" xml:space="preserve"><value>トップ</value></data>
+  <data name="Events" xml:space="preserve"><value>イベント一覧</value></data>
+  <data name="MyReservations" xml:space="preserve"><value>自分の予約</value></data>
+  <data name="AdminEvents" xml:space="preserve"><value>イベント管理</value></data>
+  <data name="AdminReservations" xml:space="preserve"><value>予約管理</value></data>
+  <data name="SelectUser" xml:space="preserve"><value>利用者選択</value></data>
+  <data name="Logout" xml:space="preserve"><value>ログアウト</value></data>
+  <data name="LoggedInAs" xml:space="preserve"><value>ログイン中</value></data>
+</root>
